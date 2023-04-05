@@ -7,7 +7,7 @@ import requests
 import pygame as pg
 from PIL import Image
 
-from config import *
+# from config import *
 from threading import Thread
 
 import copy
