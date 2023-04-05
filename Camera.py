@@ -61,10 +61,14 @@ class Camera:
         return respCount > 0, img, rawImg, resp
 
     def getImage(self):
+        print("111111111111")
         with picamera.PiCamera() as camera:
+            print("22222222222222")
+
             file_name = "/home/pi/Pictures/img_" + "test" + ".jpg"
             camera.capture(file_name)
-            img = cv2.imread(filename)
+            print("3333333333333333333")
+            img = cv2.imread(file_name)
 
         # success, img = self.video.read()
         # Rotate Camera Upside down if needed
