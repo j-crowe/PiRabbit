@@ -11,17 +11,18 @@ from config import *
 from threading import Thread
 
 import copy
+import picamera
 
 
 class Camera:
-    def __init__(self, source):
+    def __init__(self, c):
         # Video capture
         self.video = cv2.VideoCapture(source)
         self.soundFile = os.getcwd() + os.sep + 'car-honk.mp3'
         self.soundCondition = False
         self.uploadCondition = False
-        pg.mixer.init()
-        pg.mixer.music.load(self.soundFile)
+        # pg.mixer.init()
+        # pg.mixer.music.load(self.soundFile)
 
     def getRawFrame(self):
         # Returns the raw frame
@@ -60,14 +61,19 @@ class Camera:
         return respCount > 0, img, rawImg, resp
 
     def getImage(self):
-        success, img = self.video.read()
+        with picamera.PiCamera() as camera:
+            file_name = "/home/pi/Pictures/img_" + "test" + ".jpg"
+            camera.capture(file_name)
+            img = cv2.imread(filename)
+
+        # success, img = self.video.read()
         # Rotate Camera Upside down if needed
         # img = cv2.rotate(img, cv2.ROTATE_180)
         # Resize (while maintaining the aspect ratio) to improve speed and save bandwidth
-        height, width, channels = img.shape
-        scale = ROBOFLOW_SIZE / max(height, width)
-        img = cv2.resize(img, (round(scale * width), round(scale * height)))
-
+        # height, width, channels = img.shape
+        # scale = ROBOFLOW_SIZE / max(height, width)
+        # img = cv2.resize(img, (round(scale * width), round(scale * height)))
+        # return 
         return img
 
     def getFrame(self):
