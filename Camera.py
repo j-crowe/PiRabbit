@@ -15,7 +15,7 @@ import picamera
 
 
 class Camera:
-    def __init__(self, c):
+    def __init__(self, source):
         # Video capture
         self.video = cv2.VideoCapture(source)
         self.soundFile = os.getcwd() + os.sep + 'car-honk.mp3'
